@@ -1,6 +1,8 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from ingest import load_pdfs, split_documents
+import shutil
+import os
 
 DB_path = "/Users/lakshand/Desktop/python/RAG2/data/Vector_store"
 
@@ -17,6 +19,9 @@ def create_vector_store(chunks):
         embedding=embeddings,
         persist_directory=DB_path,
     )
+
+    # VERY IMPORTANT
+
     return vectordb
 
 
@@ -26,8 +31,25 @@ def load_vector_store():
     return vectordb
 
 
+def rebuild_vector_store(pdf_folder):
+    print("Rebuilding vector database...")
+
+    # 1. Delete old vector DB safely
+    if os.path.exists(DB_path):
+        shutil.rmtree(DB_path)
+        print("Old vector store deleted")
+
+    # 2. Rebuild DB
+    docs = load_pdfs(pdf_folder)
+    chunks = split_documents(docs)
+    db = create_vector_store(chunks)
+
+    print("Vector DB rebuilt successfully!")
+    return db
+
+
 if __name__ == "__main__":
-    doc = load_pdfs("/Users/lakshand/Desktop/python/RAG2/data")
-    chunks = split_documents(doc)
+    docs = load_pdfs("/Users/lakshand/Desktop/python/RAG2/data")
+    chunks = split_documents(docs)
     db = create_vector_store(chunks)
     print("Vector store created and saved successfully!")
