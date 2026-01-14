@@ -2,7 +2,7 @@
 
 import streamlit as st
 import os
-from chatbot import retrieve_docs, build_prompt, ask_llm
+from chatbot2 import get_qa_chain
 from vectorstore import rebuild_vector_store
 
 # ------------------ CONFIG ------------------
@@ -55,9 +55,10 @@ if query:
     # Run RAG pipeline
     with st.spinner("🔍 Searching PDFs and generating answer..."):
         try:
-            docs = retrieve_docs(query, k=8)
-            prompt = build_prompt(query, docs)
-            answer = ask_llm(prompt)
+            qa_chain = get_qa_chain()
+            result = qa_chain.invoke(query)
+            answer = result["result"]
+            docs = result.get("source_documents", [])
         except Exception as e:
             answer = f"❌ Error occurred: {e}"
             docs = []
