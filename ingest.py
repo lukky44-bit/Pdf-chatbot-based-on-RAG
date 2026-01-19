@@ -3,6 +3,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pathlib import Path
 from ocr import ocr_image, ocr_scanned_pdf
+from audio import audio_to_text
 
 
 def load_files(data_path):
@@ -20,6 +21,10 @@ def load_files(data_path):
         elif file.suffix.lower() == ".txt":
             print(f"Processing TXT: {file.name}")
             text = file.read_text()
+
+        elif file.suffix.lower() in [".mp3", ".wav", ".m4a", ".mp4"]:
+            print(f"transcribing audio file: {file.name}")
+            text = audio_to_text(file)
 
         else:
             continue

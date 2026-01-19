@@ -17,8 +17,8 @@ st.caption("Supports PDF, Images, TXT, and Scanned PDFs")
 st.sidebar.header("📂 Upload Files")
 
 uploaded_files = st.sidebar.file_uploader(
-    "Upload files (PDF, Images, TXT)",
-    type=["pdf", "png", "jpg", "jpeg", "txt"],
+    "Upload files (PDF, Images, TXT,Audio)",
+    type=["pdf", "png", "jpg", "jpeg", "txt", ".mp3", ".wav", ".m4a", ".mp4"],
     accept_multiple_files=True,
 )
 
