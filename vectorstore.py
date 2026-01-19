@@ -1,6 +1,6 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-from ingest import load_pdfs, split_documents
+from ingest import load_files, split_documents
 import shutil
 import os
 
@@ -40,7 +40,7 @@ def rebuild_vector_store(pdf_folder):
         print("Old vector store deleted")
 
     # 2. Rebuild DB
-    docs = load_pdfs(pdf_folder)
+    docs = load_files(pdf_folder)
     chunks = split_documents(docs)
     db = create_vector_store(chunks)
 
@@ -49,7 +49,7 @@ def rebuild_vector_store(pdf_folder):
 
 
 if __name__ == "__main__":
-    docs = load_pdfs("/Users/lakshand/Desktop/python/RAG2/data")
+    docs = load_files("/Users/lakshand/Desktop/python/RAG2/data")
     chunks = split_documents(docs)
     db = create_vector_store(chunks)
     print("Vector store created and saved successfully!")
