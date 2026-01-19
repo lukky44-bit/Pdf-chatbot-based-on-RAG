@@ -48,8 +48,8 @@ def rebuild_vector_store(pdf_folder):
     return db
 
 
-if __name__ == "__main__":
-    docs = load_files("/Users/lakshand/Desktop/python/RAG2/data")
-    chunks = split_documents(docs)
-    db = create_vector_store(chunks)
-    print("Vector store created and saved successfully!")
+# if __name__ == "__main__":
+#     docs = load_files("/Users/lakshand/Desktop/python/RAG2/data")
+#     chunks = split_documents(docs)
+#     db = create_vector_store(chunks)
+#     print("Vector store created and saved successfully!")

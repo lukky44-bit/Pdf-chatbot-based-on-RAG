@@ -25,7 +25,7 @@ def get_retriever(k=5):
 
 
 def get_template():
-    template = """ you are a pdf assistant, you must only use the given context to answer, 
+    template = """ you are a RAG assistant, you must only use the given context to answer, 
     if the user asks any genreal stuffs like good morning etc reply them with a correct reply
     
     Context:{context}

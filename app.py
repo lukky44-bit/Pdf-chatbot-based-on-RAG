@@ -37,6 +37,13 @@ if st.sidebar.button("Process Files"):
             # TXT → direct read
             rebuild_vector_store(DATA_FOLDER)
 
+            for file in os.listdir(DATA_FOLDER):
+                file_path = os.path.join(DATA_FOLDER, file)
+                if file == "Vector_store":
+                    continue
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+
         st.sidebar.success("✅ Files uploaded and Vector DB rebuilt successfully!")
     else:
         st.sidebar.warning("⚠️ Please upload at least one file before processing.")
