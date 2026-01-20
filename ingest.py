@@ -1,8 +1,8 @@
 from langchain_core.documents import Document
-from langchain_community.document_loaders import PyPDFLoader
+from pdf import extract_pdf_text
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pathlib import Path
-from ocr import ocr_image, ocr_scanned_pdf
+from ocr import ocr_image
 from audio import audio_to_text
 
 
@@ -33,23 +33,6 @@ def load_files(data_path):
 
     print(f"Total documents loaded: {len(docs)}")
     return docs
-
-
-def extract_pdf_text(pdf_path):
-    loader = PyPDFLoader(str(pdf_path))
-    pages = loader.load()
-
-    normal_text = ""
-    for p in pages:
-        normal_text += p.page_content or ""
-
-    # Detect scanned PDF
-    if len(normal_text.strip()) < 50:
-        print(f"Scanned PDF detected → Using OCR: {pdf_path.name}")
-        return ocr_scanned_pdf(pdf_path)
-
-    print(f"Normal PDF detected: {pdf_path.name}")
-    return normal_text
 
 
 def split_documents(docs):

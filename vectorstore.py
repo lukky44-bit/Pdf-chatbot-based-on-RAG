@@ -20,8 +20,6 @@ def create_vector_store(chunks):
         persist_directory=DB_path,
     )
 
-    # VERY IMPORTANT
-
     return vectordb
 
 
